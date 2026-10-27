@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: forid-ingress
+  namespace: development
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+  labels:
+    app.kubernetes.io/name: forid-ingress
+spec:
+  rules:
+   - http:
+      paths:
+      - pathType: Prefix
+        path: "/nginx"
+        backend:
+          service:
+            name: nginx-service
+            port: 
+              number: 8080
+      - pathType: Prefix
+        path: "/"
+        backend:
+          service:
+            name: note-service
+            port: 
+              number: 8000
